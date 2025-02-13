@@ -18,13 +18,13 @@ spec:
     registryUrl: ghcr.io/lsc-sde
     medcat:
       dummyMode: false
-      tolerations:
-        - key: "kubernetes.azure.com/scalesetpriority"
-          operator: "Equal"
-          value: "spot"
-          effect: "NoSchedule"
+      # tolerations:
+      #   - key: "kubernetes.azure.com/scalesetpriority"
+      #     operator: "Equal"
+      #     value: "spot"
+      #     effect: "NoSchedule"
       storage:
-        storageClassName: azureblob-fuse-premium # Azure Blob Fuse Premium
+        storageClassName: jupyter-default # Us
         accessModes:
           - ReadOnlyMany
     ingress:
