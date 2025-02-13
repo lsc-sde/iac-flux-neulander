@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: neulander
+  namespace: ${neulander_namespace}
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: 8m
+    xlscsde.nhs.uk/dns-record: neulander${environment_dns_suffix}
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: ${environment_dns_prefix}neulander${environment_dns_suffix}.${private_dnz_zone}
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: neulander-api
+            port: 
+              name: http
+  tls:
+    - hosts:
+      - ${environment_dns_prefix}neulander${environment_dns_suffix}.${private_dnz_zone}
+      secretName: ${environment_dns_prefix}neulander${environment_dns_suffix}.${private_dnz_zone}-tls
+    

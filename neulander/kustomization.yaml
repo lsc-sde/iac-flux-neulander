@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: ${neulander_namespace}
 resources:
   # - gitrepository.yaml
+  - ingress.yaml
   - release.yaml
   - repository.yaml
   - secret.yaml
