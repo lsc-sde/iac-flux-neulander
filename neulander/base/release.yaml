@@ -3,7 +3,10 @@ kind: HelmRelease
 metadata:
   name: neulander
   namespace: neulander
+  annotations:
+    xlscsde.nhs.uk/flux-branch: main
 spec:
+  targetNamespace: neulander
   releaseName: neulander
   interval: 60m
   chart:
@@ -13,6 +16,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: neulander
+        namespace: neulander
       interval: 60m
   values:
     registryUrl: ghcr.io/lsc-sde
