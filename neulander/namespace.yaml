@@ -1,6 +1,0 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: neulander
-  labels:
-    fluxcd.io/namespace: "true"

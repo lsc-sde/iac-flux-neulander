@@ -2,7 +2,7 @@ apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: GitRepository
 metadata:
   name: neulander
-  namespace: neulander
+  namespace: ${neulander_namespace}
 spec:
   interval: 5m
   url: https://github.com/lsc-sde/iac-flux-neulander

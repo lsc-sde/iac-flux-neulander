@@ -2,22 +2,31 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: neulander
-  namespace: neulander
+  namespace: ${neulander_namespace}
   annotations:
-    xlscsde.nhs.uk/flux-branch: main
+    xlscsde.nhs.uk/flux-branch: ${neulander_branch}
 spec:
-  targetNamespace: neulander
+  targetNamespace: ${neulander_namespace}
   releaseName: neulander
-  interval: 60m
+  interval: 5m
   chart:
     spec:
       chart: neulander
-      version: 0.1.0
+      version: ${neulander_chart_version}
       sourceRef:
         kind: HelmRepository
         name: neulander
-        namespace: neulander
-      interval: 60m
+        namespace: ${neulander_namespace}
+  install:
+    remediation:
+      retries: -1
+    disableWait: true
+    disableWaitForJobs: true
+  upgrade:
+    remediation:
+      retries: -1
+    disableWait: true
+    disableWaitForJobs: true
   values:
     registryUrl: ghcr.io/lsc-sde
     medcat:
@@ -28,7 +37,7 @@ spec:
       #     value: "spot"
       #     effect: "NoSchedule"
       storage:
-        storageClassName: jupyter-default # Us
+        storageClassName: jupyter-default 
         accessModes:
           - ReadOnlyMany
     ingress:
