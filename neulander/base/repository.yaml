@@ -1,0 +1,8 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: neulander
+  namespace: neulander
+spec:
+  interval: 60m
+  url: https://lsc-sde.github.io/iac-helm-neulander/

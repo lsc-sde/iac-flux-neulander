@@ -1,0 +1,41 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: neulander
+  namespace: neulander
+spec:
+  releaseName: neulander
+  interval: 60m
+  chart:
+    spec:
+      chart: neulander
+      version: 0.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: neulander
+      interval: 60m
+  values:
+    registryUrl: ghcr.io/lsc-sde
+    medcat:
+      dummyMode: false
+      tolerations:
+        - key: "kubernetes.azure.com/scalesetpriority"
+          operator: "Equal"
+          value: "spot"
+          effect: "NoSchedule"
+      storage:
+        storageClassName: azureblob-fuse-premium # Azure Blob Fuse Premium
+        accessModes:
+          - ReadOnlyMany
+    ingress:
+      enabled: true
+      ingressClassName: nginx
+      annotations:
+        nginx.ingress.kubernetes.io/ssl-redirect: "true"
+        nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+        xlscsde.nhs.uk/dns-record: neulander${environment_dns_suffix}
+      hosts:
+        - host: ${environment_dns_prefix}neulander${environment_dns_suffix}.${private_dnz_zone}
+      tls:
+        enabled: true
+        secretName: ${environment_dns_prefix}neulander${environment_dns_suffix}.${private_dnz_zone}-tls
