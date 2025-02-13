@@ -4,5 +4,5 @@ metadata:
   name: neulander
   namespace: neulander
 spec:
-  interval: 60m
+  interval: 5m
   url: https://lsc-sde.github.io/iac-helm-neulander/
