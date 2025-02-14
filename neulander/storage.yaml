@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  annotations:
+    pv.kubernetes.io/provisioned-by: blob.csi.azure.com
+  name: neulander-medcat-storage
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadOnlyMany
+  persistentVolumeReclaimPolicy: Retain  # If set as "Delete" container would be removed after pvc deletion
+  storageClassName: azureblob-fuse-premium
+  mountOptions:
+    - nconnect=4
+  csi:
+    driver: blob.csi.azure.com
+    # make sure volumeid is unique for every identical storage blob container in the cluster
+    # character `#` and `/` are reserved for internal use and cannot be used in volumehandle
+    volumeHandle: lscsdedevj2zrecy87ltte_medcat-models
+    volumeAttributes:
+      resourceGroup: lscsdedev-rg
+      storageAccount: scsdedevj2zrecy87ltte
+      containerName: medcat-models
+      protocol: fuse
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: neulander-medcat-storage
+  namespace: ${neulander_namespace}
+spec:
+  accessModes:
+    - ReadOnlyMany
+  resources:
+    requests:
+      storage: 5Gi
+  volumeName: neulander-medcat-storage
+  storageClassName: azureblob-fuse-premium

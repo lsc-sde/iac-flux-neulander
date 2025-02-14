@@ -31,13 +31,16 @@ spec:
     registryUrl: ghcr.io/lsc-sde
     medcat:
       dummyMode: false
+      medcatModelPath: /models/medcat_model_pack_v1.4.0.zip 
+      resources:
+        requests:
+          memory: "7Gi"
+          cpu: "500m"
+        limits:
+          memory: "10Gi"
+          cpu: "1200m"
       # tolerations:
       #   - key: "kubernetes.azure.com/scalesetpriority"
       #     operator: "Equal"
       #     value: "spot"
       #     effect: "NoSchedule"
-      storage:
-        storageClassName: jupyter-default 
-        accessModes:
-          - ReadOnlyMany
-      
