@@ -7,3 +7,4 @@ resources:
   - release.yaml
   - repository.yaml
   - secret.yaml
+  - storage.yaml
