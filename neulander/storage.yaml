@@ -20,7 +20,7 @@ spec:
     volumeHandle: lscsdedevj2zrecy87ltte_medcat-models
     volumeAttributes:
       resourceGroup: lscsdedev-rg
-      storageAccount: scsdedevj2zrecy87ltte
+      storageAccount: lscsdedevj2zrecy87ltte
       containerName: medcat-models
       protocol: fuse
 ---
